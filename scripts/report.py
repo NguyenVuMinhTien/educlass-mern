@@ -220,7 +220,16 @@ def content():
         ("Sessions", "userId, expiresAt", "TTL theo thời gian hết hạn"),
     ]
     api = markdown_table("api.md", "| Method")
-    test_groups = markdown_table("testing.md", "| Nhóm")
+    test_groups = [
+        ("Ca kiểm thử", "Kết quả quan sát", "Trạng thái"),
+        ("TC01 · Xác thực", "JWT trong cookie. Đăng ký trùng 409. Sai mật khẩu hoặc thiếu phiên trả 401.", "PASS"),
+        ("TC02 · Khóa học", "CRUD bản nháp đúng chủ. Trùng mã trả 409, trái quyền trả 403.", "PASS"),
+        ("TC03 · Ghi danh", "Ghi danh trùng 409. Chưa ghi danh bị chặn. Hoàn thành lặp chỉ tính một lần.", "PASS"),
+        ("TC04 · Tài liệu", "Tải PDF đúng byte. Chặn file PDF sai. Quản lý được video và bài đọc.", "PASS"),
+        ("TC05 · Bài nộp", "Nộp text/TXT, cập nhật trước hạn và chặn nộp sai quyền hoặc quá hạn.", "PASS"),
+        ("TC06 · Chấm điểm", "Chặn điểm ngoài miền. Điểm 0 được giữ. Ẩn điểm và nhận xét nháp.", "PASS"),
+        ("TC07 · Quản trị", "Quản lý tài khoản, lớp, từ chối phiên bị khóa và thu hồi JWT khi logout.", "PASS"),
+    ]
     report = [
         chapter("Chương 1. Tổng quan đề tài", "overview"),
         heading("1.1. Bối cảnh"),
@@ -302,7 +311,7 @@ def content():
         para("API test chạy qua HTTP với Express và MongoDB Community 8.3. Môi trường Windows dùng Node.js 24. Kiểm thử giao diện dùng Playwright trên Chrome và dữ liệu demo."),
         table(test_groups, [0.27, 0.60, 0.13]), caption("Bảng 4. Kỳ vọng, quan sát và kết quả API."),
         heading("7.1. Kiểm tra trình duyệt"),
-        para("Chrome kiểm tra sáu nhóm thao tác. Kịch bản nghiệm thu hai chiều chạy bản build qua Express và MongoDB riêng, từ tạo lớp, ghi danh, tải PDF và nộp văn bản kèm tệp, đến công bố 9.25/10 và khóa/mở lại tài khoản. Trang chủ và dashboard được kiểm tra ở 375, 390, 768, 1024 và 1440 px. Không quan sát lỗi JavaScript, lỗi API 5xx hoặc tràn ngang trong các ca đã chạy."),
+        para("Chrome kiểm tra sáu nhóm thao tác. Kịch bản nghiệm thu ba vai trò chạy bản build qua Express và MongoDB riêng, từ tạo lớp, ghi danh, tải PDF và nộp văn bản kèm tệp, đến công bố 9.25/10 và khóa/mở lại tài khoản. Trang chủ và dashboard được kiểm tra ở 375, 390, 768, 1024 và 1440 px. Không quan sát lỗi JavaScript, lỗi API 5xx hoặc tràn ngang trong các ca đã chạy."),
         heading("7.2. Lỗi đã sửa và giới hạn xác minh"),
         para("Kiểm thử phát hiện nhãn select có thể bị đọc kèm các lựa chọn. Giao diện liên kết nhãn bằng ID riêng. Lỗi tải PDF từ thư mục ẩn được sửa bằng root upload và kiểm thử hồi quy. ESLint, kiểm thử Node và Vite build chạy thành công. Trang chủ đạt Taste Skill Gate. Chưa đo tải lớn, quét tệp bằng antivirus hoặc chạy trên nhiều engine trình duyệt."),
         PageBreak(),
