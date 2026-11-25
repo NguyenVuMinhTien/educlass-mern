@@ -9,6 +9,10 @@ npm run build
 node scripts/browser-check.mjs
 ```
 
+Để chạy thêm UI06, dùng cơ sở dữ liệu demo mới và chạy lệnh trình duyệt với tham số --acceptance. Ca này tạo khóa học, hồ sơ sinh viên và bài nộp nghiệm thu thật.
+
+Kiểm tra npm audit với dependency runtime báo 0 lỗ hổng đã biết tại thời điểm chạy.
+
 ## Kết quả API
 
 | Nhóm | Kỳ vọng và kết quả thực tế | Trạng thái |
@@ -32,6 +36,7 @@ Node báo 8 test đạt, gồm bảy ca con và một nhóm cha. [Mã kiểm th�
 | UI03 | Tạo/xóa lớp bản nháp, xem trước và tải PDF, mở bảng sinh viên và biểu mẫu chấm. | PASS |
 | UI04 | Tìm lớp, chuyển bài học, mở form nộp bài, xem điểm 8.5/10, từ chối route admin. | PASS |
 | UI05 | Trang chủ và dashboard ở 375, 390, 768, 1024, 1440 px. Menu mobile hoạt động, không tràn ngang, không lỗi JavaScript/API 5xx trong các ca chạy. | PASS |
+| UI06 | Nghiệm thu bản build với Express và MongoDB riêng. Tạo lớp, bài học, tài liệu và bài tập. Đăng ký, ghi danh, tải PDF và nộp bài có tệp. Giảng viên công bố 9.25/10. Admin khóa rồi mở tài khoản, API lần lượt trả 403 và 200. | PASS |
 
 Một lần chạy ban đầu phát hiện nhãn select bị đọc kèm nội dung lựa chọn. Form đã dùng ID riêng để liên kết nhãn với điều khiển, sau đó chạy lại bằng Chrome. Lần chạy bản build phát hiện thư mục upload có đoạn đường dẫn bắt đầu bằng dấu chấm bị middleware gửi file từ chối. Tệp hiện được gửi từ root upload đã cấu hình bằng khóa lưu trữ cố định, kèm ca hồi quy TC04. [Mã kiểm thử trình duyệt](../scripts/browser-check.mjs) · [Ảnh minh chứng](screenshots/)
 

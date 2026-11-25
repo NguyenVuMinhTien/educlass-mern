@@ -17,4 +17,4 @@
 | R13 | REST, tách route/controller/model, xử lý lỗi | Middleware và controller nghiệp vụ | Prefix `/api/v1` | Mongoose | TC01–07 · [API](api.md) | Completed |
 | R14 | MongoDB và tối thiểu bốn collection | Schema và index | API nghiệp vụ | User, Course, Enrollment, Assignment và 4 model bổ sung | TC01–07 · [ERD](database.md) | Completed |
 | R15 | Báo cáo PDF, hướng dẫn và ảnh thật | Báo cáo A4, README, ảnh Chrome | — | — | [README](../README.md) · [ảnh](screenshots/) | Completed |
-| R16 | Repository GitHub, README, loại bí mật | Mã nguồn Git, README, ignore rules | — | — | [Hướng dẫn push](installation.md#github-và-hai-tệp-nộp) | Partially Completed · Chờ repository đích và quyền đưa mã nguồn lên GitHub. |
+| R16 | Repository GitHub, README, loại bí mật | Mã nguồn Git, README, ignore rules | — | — | [Hướng dẫn push](installation.md#github-và-hai-tệp-nộp) | Completed · [Repository nộp bài](https://github.com/NguyenVuMinhTien/educlass-mern). |

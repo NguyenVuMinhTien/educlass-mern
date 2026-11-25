@@ -108,13 +108,13 @@ SCREEN_TITLES = [
 ]
 
 
-def shot(n, max_height=260, max_width=None):
+def shot(n, max_height=260, max_width=None, label=None):
     path, = (ROOT / "docs" / "screenshots").glob(f"{n:02d}-*.png")
     with PillowImage.open(path) as source:
         w, h = source.size
     scale = min((max_width or WIDTH) / w, max_height / h)
     return [Image(str(path), width=w * scale, height=h * scale, hAlign="CENTER"),
-            caption(f"Hình {n}. {SCREEN_TITLES[n - 1]}.")]
+            caption(f"Hình {label or n}. {SCREEN_TITLES[n - 1]}.")]
 
 
 def footer(canvas, doc):
@@ -282,9 +282,10 @@ def content():
         para("<b>Quản trị viên:</b> Lọc và phân trang, cấp tài khoản giảng viên, xác nhận khóa/mở người dùng và điều chỉnh trạng thái lớp."),
         heading("5.2. Kiểm soát tài khoản và tệp"),
         para("Cookie dùng HttpOnly, SameSite=Lax và Secure trong production [4]. API kiểm tra Origin khi ghi dữ liệu. File PDF/TXT giới hạn 8 MB, kiểm tra loại và nội dung, dùng tên lưu ngẫu nhiên. Tải tệp cần quyền tài nguyên tương ứng."),
-        *shot(1, 235), PageBreak(),
+        *shot(1, 235, label="5.1"), PageBreak(),
         heading("5.3. Bảng điều khiển thực tế"),
-        *shot(4), *shot(7), PageBreak(), *shot(14), *shot(19), PageBreak(),
+        *shot(4, label="5.2"), *shot(7, label="5.3"), PageBreak(),
+        *shot(14, label="5.4"), *shot(19, label="5.5"), PageBreak(),
         chapter("Chương 6. Tài liệu API", "api"),
         para("Base URL /api/v1. Các thao tác thay đổi dữ liệu yêu cầu Origin khớp cấu hình. Thành công trả success, message và data. Lỗi trả success=false, message và errors. A là admin, G là giảng viên quản lý lớp, S là sinh viên. Các endpoint có tệp trả nhị phân."),
     ]
@@ -301,9 +302,9 @@ def content():
         para("API test chạy qua HTTP với Express và MongoDB Community 8.3. Môi trường Windows dùng Node.js 24. Kiểm thử giao diện dùng Playwright trên Chrome và dữ liệu demo."),
         table(test_groups, [0.27, 0.60, 0.13]), caption("Bảng 4. Kỳ vọng, quan sát và kết quả API."),
         heading("7.1. Kiểm tra trình duyệt"),
-        para("Năm nhóm kiểm tra Chrome đi qua form và điều hướng, dashboard, tạo/xóa bản nháp, tải PDF, trang học và điểm công bố. Trang chủ và dashboard được kiểm tra ở 375, 390, 768, 1024 và 1440 px. Không quan sát lỗi JavaScript, lỗi API 5xx hoặc tràn ngang trong các ca đã chạy."),
+        para("Chrome kiểm tra sáu nhóm thao tác. Kịch bản nghiệm thu hai chiều chạy bản build qua Express và MongoDB riêng, từ tạo lớp, ghi danh, tải PDF và nộp văn bản kèm tệp, đến công bố 9.25/10 và khóa/mở lại tài khoản. Trang chủ và dashboard được kiểm tra ở 375, 390, 768, 1024 và 1440 px. Không quan sát lỗi JavaScript, lỗi API 5xx hoặc tràn ngang trong các ca đã chạy."),
         heading("7.2. Lỗi đã sửa và giới hạn xác minh"),
-        para("Kiểm thử phát hiện nhãn select có thể bị đọc kèm các lựa chọn. Giao diện liên kết nhãn bằng ID riêng và kiểm tra lại. ESLint, kiểm thử Node và Vite build chạy thành công. Chưa đo tải lớn, quét tệp bằng antivirus hoặc chạy trên nhiều engine trình duyệt."),
+        para("Kiểm thử phát hiện nhãn select có thể bị đọc kèm các lựa chọn. Giao diện liên kết nhãn bằng ID riêng. Lỗi tải PDF từ thư mục ẩn được sửa bằng root upload và kiểm thử hồi quy. ESLint, kiểm thử Node và Vite build chạy thành công. Trang chủ đạt Taste Skill Gate. Chưa đo tải lớn, quét tệp bằng antivirus hoặc chạy trên nhiều engine trình duyệt."),
         PageBreak(),
         chapter("Chương 8. Hướng dẫn cài đặt", "install"),
         heading("8.1. Chuẩn bị"),
@@ -324,7 +325,7 @@ def content():
         chapter("Chương 9. Kết luận và hướng phát triển", "conclusion"),
         heading("9.1. Kết quả đạt được"),
         para("EduClass triển khai ba vai trò và các luồng lõi của đề bài trên dữ liệu MongoDB thật. REST API hỗ trợ ghi danh, học liệu, nộp bài, chấm điểm và quản trị. Bộ kiểm thử xác minh cả trường hợp thành công lẫn lỗi quyền và dữ liệu."),
-        para("Ma trận trong docs/traceability.md đối chiếu đề bài với màn hình, API, model và kết quả. Báo cáo PDF và mã nguồn đã được chuẩn bị. URL GitHub phụ thuộc repository đích của nhóm."),
+        para("Ma trận trong docs/traceability.md đối chiếu đề bài với màn hình, API, model và kết quả. Báo cáo PDF và mã nguồn đã được chuẩn bị. Repository đích của nhóm là <link href='https://github.com/NguyenVuMinhTien/educlass-mern' color='#174D4B'>NguyenVuMinhTien/educlass-mern</link>."),
         heading("9.2. Hạn chế và hướng phát triển"),
         para("File hiện nằm trên máy chủ ứng dụng. Nhiều máy chủ cần kho tệp dùng chung, quản lý giới hạn tần suất tập trung và sao lưu đồng bộ. Có thể mở rộng khôi phục mật khẩu, nhắc hạn, phân tích kết quả học tập và kiểm thử tải."),
         PageBreak(),
@@ -345,8 +346,8 @@ def content():
     for i, number in enumerate([2, 3, 5, 6, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18]):
         if i and i % 2 == 0:
             report.append(PageBreak())
-        report.append(KeepTogether(shot(number)))
-    phones = Table([[shot(20, 490, WIDTH * 0.43), shot(21, 490, WIDTH * 0.43)]], colWidths=[WIDTH / 2] * 2)
+        report.append(KeepTogether(shot(number, label=f"A.{i + 1}")))
+    phones = Table([[shot(20, 490, WIDTH * 0.43, "A.15"), shot(21, 490, WIDTH * 0.43, "A.16")]], colWidths=[WIDTH / 2] * 2)
     phones.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP")]))
     return [*report, PageBreak(), heading("Giao diện trên điện thoại"), phones]
 
